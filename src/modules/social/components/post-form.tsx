@@ -1,5 +1,5 @@
 import { useEffect, type ReactNode } from 'react'
-import { useForm, useWatch } from 'react-hook-form'
+import { Controller, useForm, useWatch } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { AlertCircle, LoaderCircle, Save } from 'lucide-react'
 import { cn } from 'cn'
@@ -9,8 +9,9 @@ import { Button } from '@/core/components/ui/button'
 import { shortcutAria, useShortcut } from '@/core/lib/use-shortcut'
 import { postSchema } from '../schema/post-schema'
 import type { Post, PostInput } from '../types/post'
+import { ImagePicker } from './image-picker'
 
-const EMPTY: PostInput = { title: '', content: '', published: false }
+const EMPTY: PostInput = { title: '', content: '', published: false, image: null }
 
 function FormRow({
   label,
@@ -79,7 +80,16 @@ export function PostForm({
   // Mỗi lần mở form: điền dữ liệu bài đang sửa, hoặc để trống nếu thêm mới.
   useEffect(() => {
     if (open)
-      reset(post ? { title: post.title, content: post.content, published: post.published } : EMPTY)
+      reset(
+        post
+          ? {
+              title: post.title,
+              content: post.content,
+              published: post.published,
+              image: post.image ?? null,
+            }
+          : EMPTY,
+      )
   }, [open, post, reset])
 
   const close = () => {
@@ -174,6 +184,22 @@ export function PostForm({
               className={cn(fieldClass(!!errors.content), 'resize-y py-2.5 leading-relaxed')}
             />
             <FieldError id="post-content-error" message={errors.content?.message} />
+          </FormRow>
+
+          <FormRow label="Ảnh" htmlFor="post-image">
+            <Controller
+              control={control}
+              name="image"
+              render={({ field }) => (
+                <ImagePicker
+                  id="post-image"
+                  value={field.value}
+                  disabled={busy}
+                  error={errors.image?.message}
+                  onChange={field.onChange}
+                />
+              )}
+            />
           </FormRow>
 
           <FormRow label="Xuất bản" htmlFor="post-published">

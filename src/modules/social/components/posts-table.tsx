@@ -48,7 +48,7 @@ export function PostsTable({
       <Table className="min-w-[70rem] table-fixed">
         <colgroup>
           <col className="w-14" />
-          <col className="w-[28%]" />
+          <col className="w-[32%]" />
           <col />
           <col className="w-40" />
           <col className="w-28" />
@@ -80,7 +80,19 @@ export function PostsTable({
                 <TableCell className="text-center text-muted-foreground tabular-nums">
                   {index + 1}
                 </TableCell>
-                <TableCell className="font-bold wrap-anywhere">{post.title}</TableCell>
+                <TableCell>
+                  <div className="flex items-start gap-3">
+                    {post.image && (
+                      <img
+                        src={post.image}
+                        alt=""
+                        loading="lazy"
+                        className="size-12 shrink-0 rounded-lg border border-border object-cover"
+                      />
+                    )}
+                    <span className="font-bold wrap-anywhere">{post.title}</span>
+                  </div>
+                </TableCell>
                 <TableCell className="whitespace-pre-wrap text-muted-foreground wrap-anywhere">
                   {post.content}
                 </TableCell>

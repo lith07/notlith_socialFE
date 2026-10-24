@@ -39,7 +39,7 @@ export default function PostsPage() {
   const visible = posts.filter((p) => normalize(p.title + ' ' + p.content).includes(keyword))
 
   return (
-    <main className="mx-auto flex min-h-svh w-full max-w-[110rem] flex-col gap-6 px-4 py-8 sm:px-8">
+    <main className="flex flex-col gap-6">
       <PostsToolbar search={search} busy={!ready} onSearch={setSearch} onCreate={openCreate} />
 
       {loading ? (
