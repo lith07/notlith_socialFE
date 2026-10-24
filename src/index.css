@@ -1,0 +1,80 @@
+@import 'tailwindcss';
+@import 'tw-animate-css';
+
+/*
+ * Theme "Peach and navy" — cute, minimal.
+ * Mọi màu, bo góc và font của ứng dụng đều đọc từ các token dưới đây.
+ * Muốn đổi giao diện chỉ cần sửa file này; component không viết cứng mã màu.
+ */
+
+@theme inline {
+  /* html dùng font-size 62.5% (1rem = 10px), nên thang đo Tailwind được khai báo lại. */
+  --spacing: 0.4rem;
+  --text-xs: 1.2rem;
+  --text-sm: 1.3rem;
+  --text-base: 1.4rem;
+  --text-lg: 1.8rem;
+  --text-xl: 2rem;
+  --text-2xl: 2.4rem;
+  --text-3xl: 3rem;
+
+  --font-sans: 'Nunito', ui-rounded, system-ui, sans-serif;
+
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--foreground);
+  --color-popover: var(--card);
+  --color-popover-foreground: var(--foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-success: var(--success);
+  --color-success-foreground: var(--success-foreground);
+  --color-destructive: var(--destructive);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+
+  --radius-sm: calc(var(--radius) * 0.5);
+  --radius-md: calc(var(--radius) * 0.75);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) * 1.25);
+  --shadow-soft: 0 6px 24px rgb(31 42 68 / 0.06), 0 1px 2px rgb(31 42 68 / 0.04);
+}
+
+:root {
+  --background: #fff8f1; /* kem */
+  --foreground: #1f2a44; /* xanh navy */
+  --card: #ffffff;
+  --primary: #f4a07a; /* đào */
+  --primary-foreground: #1f2a44;
+  --secondary: #fdebdd; /* đào nhạt */
+  --muted: #f7efe6;
+  --muted-foreground: #6a7085;
+  --success: #e3f4ec;
+  --success-foreground: #1e6b4a;
+  --destructive: #d9454b;
+  --border: #f0e2d3;
+  --input: #ebdccb;
+  --ring: #f4a07a;
+  --radius: 1.6rem; /* 16px */
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  html {
+    @apply font-sans;
+    font-size: 62.5%;
+  }
+  body {
+    @apply bg-background text-foreground antialiased;
+    font-size: 1.4rem;
+    line-height: 1.55;
+  }
+}
