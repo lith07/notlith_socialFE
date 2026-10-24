@@ -1,4 +1,4 @@
-import { request } from './http-client'
+import { request } from '@/core/api/http-client'
 import type { Post, PostInput } from '../types/post'
 export const postsApi = {
   list: () => request<Post[]>('/posts?_sort=id&_order=desc'),
