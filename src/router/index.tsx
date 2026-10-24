@@ -1,7 +1,8 @@
 import { lazy, Suspense } from 'react'
 import { Navigate, Route, Routes } from 'react-router-dom'
+import { AppShell } from '@/core/components/app-shell'
 import { PageLoading } from '@/core/components/page-loading'
-import { availableModules, defaultPath } from './registry'
+import { availableModules, defaultPath, navigation } from './registry'
 
 // lazy(): code của mỗi trang chỉ được tải khi người dùng vào trang đó.
 const routes = availableModules.flatMap((module) =>
@@ -11,14 +12,16 @@ const routes = availableModules.flatMap((module) =>
 export function AppRouter() {
   const home = defaultPath ?? '/posts'
   return (
-    <Suspense fallback={<PageLoading />}>
-      <Routes>
-        <Route path="/" element={<Navigate to={home} replace />} />
-        {routes.map(({ path, title, Page }) => (
-          <Route key={path} path={path} element={<Page title={title} />} />
-        ))}
-        <Route path="*" element={<Navigate to={home} replace />} />
-      </Routes>
-    </Suspense>
+    <AppShell items={navigation}>
+      <Suspense fallback={<PageLoading />}>
+        <Routes>
+          <Route path="/" element={<Navigate to={home} replace />} />
+          {routes.map(({ path, title, Page }) => (
+            <Route key={path} path={path} element={<Page title={title} />} />
+          ))}
+          <Route path="*" element={<Navigate to={home} replace />} />
+        </Routes>
+      </Suspense>
+    </AppShell>
   )
 }

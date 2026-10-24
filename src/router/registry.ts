@@ -1,4 +1,5 @@
 import type { AppModule } from '@/core/types/module'
+import type { NavItem } from '@/core/components/app-shell'
 
 // Vite quét các file modules/*/module.ts lúc build. Router không import cụ thể module nào,
 // nên thêm module mới chỉ cần tạo thư mục mới (nguyên tắc open/closed).
@@ -25,9 +26,11 @@ for (const module of availableModules) {
   }
 }
 
-/** Trang mặc định: route đầu tiên được phép hiện trong điều hướng. */
-export const defaultPath =
-  availableModules
-    .filter((module) => module.navigation !== false)
-    .flatMap((module) => module.routes.filter((route) => route.navigation !== false))[0]?.path ??
-  null
+/** Các mục menu, sinh tự động từ module và route được phép hiện trong điều hướng. */
+export const navigation: NavItem[] = availableModules
+  .filter((module) => module.navigation !== false)
+  .flatMap((module) => module.routes.filter((route) => route.navigation !== false))
+  .map((route) => ({ title: route.title, href: route.path, icon: route.icon }))
+
+/** Trang mặc định: mục menu đầu tiên. */
+export const defaultPath = navigation[0]?.href ?? null
